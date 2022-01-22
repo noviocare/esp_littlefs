@@ -18,11 +18,15 @@ function(littlefs_create_partition_image partition base_dir)
 	partition_table_get_partition_info(size "--partition-name ${partition}" "size")
 	partition_table_get_partition_info(offset "--partition-name ${partition}" "offset")
 
-	add_custom_command(
-		OUTPUT ${MKLITTLEFS}
-		COMMAND make dist
-		WORKING_DIRECTORY ${MKLITTLEFS_DIR}
-	)
+	set(MKLITTLEFS "${MKLITTLEFS}.exe")
+	
+#	FILE(TO_NATIVE_PATH "${MKLITTLEFS}" MKLITTLEFS_NATIVE)
+#	add_custom_command(
+#		OUTPUT ${MKLITTLEFS}
+#		#COMMAND make dist
+#		COMMAND copy mklittlefs.exe ${MKLITTLEFS_NATIVE}
+#		WORKING_DIRECTORY ${MKLITTLEFS_DIR}
+#	)
 
 	if("${size}" AND "${offset}")
 		set(image_file ${CMAKE_BINARY_DIR}/${partition}.bin)
